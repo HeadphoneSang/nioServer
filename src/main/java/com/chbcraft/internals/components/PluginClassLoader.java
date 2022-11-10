@@ -214,7 +214,7 @@ public class PluginClassLoader extends URLClassLoader{
             if(checkDepends&&dependPlugin!=null){
                 Iterator<String> depends = dependPlugin.iterator();
                 String pluginName;
-                while(depends.hasNext()){
+                while(result==null&&depends.hasNext()){
                     pluginName = depends.next();
                     ClassLoader loader = processor.getClassLoaderByPluginName(pluginName);
                     if(loader instanceof PluginClassLoader) {
@@ -224,8 +224,6 @@ public class PluginClassLoader extends URLClassLoader{
                             throw e;
                         }
                     }
-                    if(result!=null)
-                        break;
                 }
             }
             if(result==null){//从非依赖插件中查找
